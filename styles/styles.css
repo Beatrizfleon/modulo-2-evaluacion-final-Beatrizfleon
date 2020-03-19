@@ -1,0 +1,23 @@
+.submit-line {
+  display: inline;
+}
+
+.whole-content {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.search-btn {
+  background-color: brown;
+  color: white;
+}
+
+.righ-column {
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  text-align: center;
+}
