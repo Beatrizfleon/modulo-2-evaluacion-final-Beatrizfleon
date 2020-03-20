@@ -5,9 +5,28 @@
 .whole-content {
   display: flex;
   flex-direction: row-reverse;
-  justify-content: space-between;
+  justify-content: space-evenly;
+}
+.righ-column {
+  width: 80%;
+}
+.serie-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fabada;
+  box-sizing: border-box;
+  padding: 6px;
+  margin: 3px;
 }
 
+.series {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
 .search-btn {
   background-color: brown;
   color: white;
