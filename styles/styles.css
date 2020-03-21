@@ -8,7 +8,7 @@
   justify-content: space-evenly;
 }
 .righ-column {
-  width: 80%;
+  width: 70%;
 }
 .serie-item {
   display: flex;
@@ -19,6 +19,7 @@
   box-sizing: border-box;
   padding: 6px;
   margin: 3px;
+  width: 220px;
 }
 
 .series {
@@ -39,4 +40,42 @@
 
 .title {
   text-align: center;
+  font-family: 'Raleway', sans-serif;
+  font-family: 'Raleway', sans-serif;
+}
+.selected-series {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.selected-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 3px;
+  margin: 4px 0px;
+  border: 4px;
+  width: 230px;
+}
+.title-left {
+  font-family: 'Raleway', sans-serif;
+  font-weight: bold;
+}
+.title-icon {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  font-family: 'Raleway', sans-serif;
+  font-weight: bold;
+}
+.favourite-title {
+  font-size: 14px;
+  width: 50px;
+  font-family: 'Raleway', sans-serif;
+}
+.img-favourite {
+  width: 100px;
 }
