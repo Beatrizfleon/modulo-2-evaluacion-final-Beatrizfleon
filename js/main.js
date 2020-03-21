@@ -8,6 +8,8 @@ let searchButton = document.querySelector('.js-search-btn');
 let seriesResult = document.querySelector('.js-series');
 let addToFavourites = document.querySelector('.js-selected-series');
 
+getFromLocalStorage();
+
 function getApiData(ev) {
   ev.preventDefault();
   let text = searchInput.value;
@@ -155,4 +157,15 @@ function paintFavourites() {
   }
   addToFavourites.innerHTML = htmlCodeFavourites;
   listenRemoveFavorite();
+  saveToLocalStorage();
+}
+
+function saveToLocalStorage() {
+  localStorage.setItem('myFavourites', JSON.stringify(favourites));
+}
+function getFromLocalStorage() {
+  if (JSON.parse(localStorage.getItem('myFavourites')) != null) {
+    favourites = JSON.parse(localStorage.getItem('myFavourites'));
+  }
+  paintFavourites();
 }
