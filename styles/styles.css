@@ -20,9 +20,7 @@ body {
   flex-direction: row-reverse;
   justify-content: space-evenly;
 }
-.righ-column {
-  width: 70%;
-}
+
 .serie-item {
   box-sizing: content-box;
   display: flex;
@@ -51,6 +49,10 @@ body {
 .righ-column {
   display: flex;
   justify-content: center;
+  width: 70%;
+}
+.left-column {
+  width: 270px;
 }
 .title-serie {
   display: flex;
@@ -104,6 +106,9 @@ body {
   width: 100%;
   position: relative;
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: ;
 }
 
 .searchTerm {
@@ -133,4 +138,16 @@ body {
   border-radius: 0 5px 5px 0;
   cursor: pointer;
   font-size: 20px;
+}
+.clearButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid purple;
+  background: purple;
+  text-align: center;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+  margin-left: 10px;
 }
