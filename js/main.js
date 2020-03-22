@@ -10,6 +10,8 @@ let addToFavourites = document.querySelector('.js-selected-series');
 
 getFromLocalStorage();
 
+// Query getting information from the API
+
 function getApiData(ev) {
   ev.preventDefault();
   let text = searchInput.value;
@@ -22,36 +24,29 @@ function getApiData(ev) {
     });
 }
 
-// function getSeriesHtmlCode() {
-//   let htmlCode = '';
-//   htmlCode += `<article class="serie-item">`;
-//   htmlCode += `<img src="http://static.tvmaze.com/uploads/images/medium_portrait/0/2400.jpg" alt=" />`;
-//   htmlCode += `<h2 class="title">Breaking Bad</h2>`;
-//   htmlCode += `</article>`;
-//   return htmlCode;
-// }
-
 function paintSeries() {
   let htmlCode = '';
 
   for (const serie of series) {
-    htmlCode += `<article class="js-add-serie serie-item" data-id="${serie.show.id}" >`;
+    htmlCode += `<article class="js-add-serie js-selected-favourite serie-item" data-id="${serie.show.id}" >`;
     if (serie.show.image != null) {
       htmlCode += `<img src="${serie.show.image.medium}" data-id="${serie.show.id}" />`;
     } else {
       htmlCode += `<img src="https://via.placeholder.com/210x295/ffffff/666666/?" data-id="${serie.show.id}"/>`;
     }
-    htmlCode += `<h2 class="title" data-id="${serie.show.id}">${serie.show.name}</h2>`;
+    htmlCode += `<div class ="title-serie"><h2 class="title" data-id="${serie.show.id}">${serie.show.name}</h2></div>`;
     htmlCode += `</article>`;
     // console.log(serie.show.name);
   }
   seriesResult.innerHTML = htmlCode;
 
   listenAddSeries();
+  setFavouriteStyle();
 }
 searchButton.addEventListener('click', getApiData);
 
 //Listen series
+
 function listenAddSeries() {
   const seriesItems = document.querySelectorAll('.js-add-serie');
   for (const seriesItem of seriesItems) {
@@ -78,6 +73,7 @@ function addSerie(ev) {
     }
   }
   paintFavourites();
+  setFavouriteStyle();
 }
 
 function removeFavourite(ev) {
@@ -86,6 +82,7 @@ function removeFavourite(ev) {
   for (let index = 0; index < favourites.length; index += 1) {
     if (favourites[index].show.id === clickedId) {
       favourites.splice(index, 1);
+      removeFavouriteStyle(clickedId);
     }
   }
 
@@ -99,46 +96,6 @@ function listenRemoveFavorite() {
     favouritesItem.addEventListener('click', removeFavourite);
   }
 }
-
-// function addSerie(ev) {
-//   const clickedId = ev.target.dataset.id;
-//   for (const serie of series) {
-//     if (clickedId === parseInt(serie.show.id)) {
-//       let exists = checkIfFavouriteExist(serie.show.id);
-//       if (exists === true) {
-//         // no hago nada
-//       } else {
-//         favourites.push(serie);
-//       }
-
-//       // if (checkIfFavouriteExist(serie.show.id)) { //el favorito ya existe y no lo añado
-//       // } else {
-//       //   favourites.push(serie);
-//       // }
-//     }
-//   }
-//   paintFavourites();
-// }
-
-// function checkIfFavouriteExist(idFavourite) {
-//   let found = false;
-
-//   for (const favourite of favourites) {
-//     if (idFavourite === favourite.show.id) {
-//       found = true;
-//     }
-//   }
-//   return found;
-// }
-
-// function checkIfFavouriteExist(id) {
-//   for (const favourite of favourites) {
-//     if (id === favourite.show.id) {
-//       return true;
-//     }
-//   }
-//   return false;
-// }
 
 function paintFavourites() {
   let htmlCodeFavourites = '';
@@ -168,4 +125,26 @@ function getFromLocalStorage() {
     favourites = JSON.parse(localStorage.getItem('myFavourites'));
   }
   paintFavourites();
+}
+
+function setFavouriteStyle() {
+  let serieArticles = seriesResult.querySelectorAll('article');
+
+  for (let favourite of favourites) {
+    for (let i = 0; i < series.length; i++) {
+      if (favourite.show.id === series[i].show.id) {
+        serieArticles[i].classList.add('selected-favourite');
+      }
+    }
+  }
+}
+// Le paso como parámetro el id de la serie que voy a quitar en favoritos
+function removeFavouriteStyle(serieId) {
+  let serieArticles = seriesResult.querySelectorAll('article');
+
+  for (let i = 0; i < series.length; i++) {
+    if (serieId === series[i].show.id) {
+      serieArticles[i].classList.remove('selected-favourite');
+    }
+  }
 }
