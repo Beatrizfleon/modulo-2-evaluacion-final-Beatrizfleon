@@ -34,7 +34,7 @@ function paintSeries() {
     } else {
       htmlCode += `<img src="https://via.placeholder.com/210x295/ffffff/666666/?" data-id="${serie.show.id}"/>`;
     }
-    htmlCode += `<div class ="title-serie"><h2 class="title" data-id="${serie.show.id}">${serie.show.name}</h2></div>`;
+    htmlCode += `<div class ="title-serie"><h2 class="title-inner" data-id="${serie.show.id}">${serie.show.name}</h2></div>`;
     htmlCode += `</article>`;
     // console.log(serie.show.name);
   }
