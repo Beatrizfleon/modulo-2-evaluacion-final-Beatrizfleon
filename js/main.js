@@ -10,7 +10,7 @@ let addToFavourites = document.querySelector('.js-selected-series');
 
 getFromLocalStorage();
 
-// Query getting information from the API
+// Petición para obtener la información del API
 
 function getApiData(ev) {
   ev.preventDefault();
@@ -23,6 +23,8 @@ function getApiData(ev) {
       paintSeries();
     });
 }
+
+// Función para crear el código de las series obtenidas de la busqueda anterior, obteniendo la imagen, el título y el id
 
 function paintSeries() {
   let htmlCode = '';
@@ -43,9 +45,10 @@ function paintSeries() {
   listenAddSeries();
   setFavouriteStyle();
 }
+
 searchButton.addEventListener('click', getApiData);
 
-//Listen series
+//Función escuchadora sobre cada una de las series resultado de la búsqueda
 
 function listenAddSeries() {
   const seriesItems = document.querySelectorAll('.js-add-serie');
@@ -54,6 +57,7 @@ function listenAddSeries() {
     seriesItem.addEventListener('click', addSerie);
   }
 }
+// Función que añade la serie seleccionada de los resultados de búsqueda a favoritos
 
 function addSerie(ev) {
   const clickedId = parseInt(ev.target.dataset.id);
@@ -64,7 +68,7 @@ function addSerie(ev) {
     }
   }
   if (foundId === undefined) {
-    // busco la serie clickada en el array de series inicial
+    // busco la serie clickada en el array de series inicial resultado de la búsqueda
 
     for (const serie of series) {
       if (serie.show.id === clickedId) {
@@ -75,6 +79,7 @@ function addSerie(ev) {
   paintFavourites();
   setFavouriteStyle();
 }
+//Función para eliminar uno de los favoritos de la columna de series favoritas
 
 function removeFavourite(ev) {
   const clickedId = parseInt(ev.target.dataset.id);
@@ -82,12 +87,15 @@ function removeFavourite(ev) {
   for (let index = 0; index < favourites.length; index += 1) {
     if (favourites[index].show.id === clickedId) {
       favourites.splice(index, 1);
+
+      //llamo a la función que elimina el estilo de serie seleccionada para que se elimine a la vez que se suprime el favorito de la columna
       removeFavouriteStyle(clickedId);
     }
   }
 
   paintFavourites();
 }
+// Función escuchadora que escucha el evento sobre la cruz que clickamos para eliminar el favorito de la columna de favoritos
 
 function listenRemoveFavorite() {
   const favouritesItems = document.querySelectorAll('.js-delete-cross');
@@ -96,6 +104,7 @@ function listenRemoveFavorite() {
     favouritesItem.addEventListener('click', removeFavourite);
   }
 }
+//Función que pinta las series favoritas
 
 function paintFavourites() {
   let htmlCodeFavourites = '';
@@ -113,9 +122,25 @@ function paintFavourites() {
     htmlCodeFavourites += `</article>`;
   }
   addToFavourites.innerHTML = htmlCodeFavourites;
+
+  // Llamo a las funciones que eliminan la serie de favoritos deseleccionada y la función que las guarda en el local storage para que se ejecuten cuando se pintan
   listenRemoveFavorite();
   saveToLocalStorage();
 }
+
+//Función para eliminar la lista entera de favoritos
+
+function clearFavourites() {
+  favourites.splice(favourites[0], favourites.length);
+
+  paintFavourites();
+  paintSeries();
+}
+
+const resetButton = document.querySelector('.js-clear');
+resetButton.addEventListener('click', clearFavourites);
+
+//Guardando la lista de favoritos en el Local storage
 
 function saveToLocalStorage() {
   localStorage.setItem('myFavourites', JSON.stringify(favourites));
@@ -126,6 +151,8 @@ function getFromLocalStorage() {
   }
   paintFavourites();
 }
+
+//Función que añade el estilo de serie seleccionada como favoritos en el array de resultados de búsqueda
 
 function setFavouriteStyle() {
   let serieArticles = seriesResult.querySelectorAll('article');
@@ -138,6 +165,7 @@ function setFavouriteStyle() {
     }
   }
 }
+//Función que elimina el estilo de la serie deseleccionada de favoritos en el array de resultados de búsqueda
 // Le paso como parámetro el id de la serie que voy a quitar en favoritos
 function removeFavouriteStyle(serieId) {
   let serieArticles = seriesResult.querySelectorAll('article');
